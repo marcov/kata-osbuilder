@@ -19,6 +19,10 @@ COMMIT_NO := $(shell git rev-parse HEAD 2> /dev/null || true)
 COMMIT := $(if $(shell git status --porcelain --untracked-files=no),${COMMIT_NO}-dirty,${COMMIT_NO})
 VERSION_COMMIT := $(if $(COMMIT),$(VERSION)-$(COMMIT),$(VERSION))
 
+.PHONY: list-distros
+list-distros:
+	@$(ROOTFS_BUILDER) -l
+
 .PHONY: all
 all: image initrd
 

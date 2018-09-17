@@ -52,8 +52,9 @@ $(get_distros)
 Refer the Platform-OS Compatibility Matrix: https://github.com/kata-containers/osbuilder#platform-distro-compatibility-matrix
 
 Options:
--a  : agent version DEFAULT: ${AGENT_VERSION} ENV: AGENT_VERSION 
--h  : Show this help message
+-a  : agent version DEFAULT: ${AGENT_VERSION} ENV: AGENT_VERSION
+-h  : show this help message
+-l  : list the supported Linux distributions
 -o  : specify version of osbuilder
 -r  : rootfs directory DEFAULT: ${ROOTFS_DIR} ENV: ROOTFS_DIR
 
@@ -90,7 +91,7 @@ distro_needs_admin_caps()
 		then
 			echo "true"
 		elif [ "$1" = "debian" ]
-		then 
+		then
 			echo "true"
 		else
 			echo "false"
@@ -168,11 +169,12 @@ copy_kernel_modules()
 
 OSBUILDER_VERSION="unknown"
 
-while getopts a:ho:r: opt
+while getopts a:hlo:r: opt
 do
 	case $opt in
 		a)	AGENT_VERSION="${OPTARG}" ;;
 		h)	usage ;;
+		l)      get_distros && exit 0;;
 		o)	OSBUILDER_VERSION="${OPTARG}" ;;
 		r)	ROOTFS_DIR="${OPTARG}" ;;
 	esac
